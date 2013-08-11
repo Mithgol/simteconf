@@ -37,7 +37,7 @@ There is always a possibility of several values of the same name. Sometimes i
 
 The meaning of a named line in a simple configuration file does not depend on the presence or the order of lines that have different names.
 
-A comment (such as `# comment` or `// comment`) is also treated as a name of the line (such as `#` or `//` in the name) which is not used later (in the parent program) and ignored. It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
+A comment (such as `# comment` or `// comment`) is also treated as a named line (with `#` or `//` in its name) which is not used later (in the parent program) and becomes ignored because its name is unknown. Any named line's behaviour is the same. It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
 
 A couple of examples in the existing Fidonet software:
 
