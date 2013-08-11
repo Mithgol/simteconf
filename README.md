@@ -30,9 +30,20 @@ Tagline We have an unusual problem here, Jane.
 
 There is always a possibility of repeating values. Sometimes intentional, like taglines in the above example. Sometimes accidental, but then the program's designer should at least make a conscious decision to take the first or the last value if it uses only one.
 
+The meaning of a named line in a simple configuration file does not depend on the presence or the order of lines that have different names.
+
+A couple of examples in the existing Fidonet software:
+
+* [BinkD](http://binkd.grumbler.org/) configuration is a simple text configuration.
+
+* Echomail area configuration of [HPT](http://husky.sourceforge.net/hpt.html) is (usually) a simple text configuration file, though it becomes complex (and cannot be parsed by simteconf) if its author uses any of the following:
+   * changing defaults in the middle of the file,
+   * conditional sections,
+   * using (and especially redefining) environment variables.
+
 # Using simteconf
 
-Require the installed module and use it to read your configuration. Continuing the example given above,
+Require the installed module and use it to read your configuration. Continuing the first of the examples given above,
 
 ```js
 var simteconf = require('simteconf');
