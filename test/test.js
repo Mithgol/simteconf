@@ -23,4 +23,8 @@ describe('Simple configuration', function(){
       assert.equal( conf.last('Witch'), 'Kriemhild Gretchen' );
       assert.deepEqual( conf.all('witch'), ['Charlotte', 'Oktavia', 'Kriemhild Gretchen'] );
    });
+   it('missing lines', function(){
+      assert.equal( conf.first('Mami'), null );
+      assert.equal( conf.last(' '), null );
+   });
 });
