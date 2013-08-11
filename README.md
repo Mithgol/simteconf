@@ -76,6 +76,12 @@ If one or more configuration lines have had the **name**, returns the array of�
 
 If the name has never been used in the configuration, `null` is returned.
 
+### random(name)
+
+If one or more configuration lines have had the **name**, returns the value from a randomly chosen one of such lines.
+
+If the name has never been used in the configuration, `null` is returned.
+
 # Testing simteconf
 
 [![(build testing status)](https://travis-ci.org/Mithgol/simteconf.png?branch=master)](https://travis-ci.org/Mithgol/simteconf)

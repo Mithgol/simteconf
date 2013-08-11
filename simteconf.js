@@ -67,6 +67,21 @@ simteconf.prototype.last = function(name){
    return _(this.lines[name]).last();
 }
 
+simteconf.prototype.random = function(name){
+   if( this.options.lowercase ) name = name.toLowerCase();
+
+   if( !_(this.lines).has(name) ){
+      return null;
+   }
+
+   var len = this.lines[name].length;
+   if( len <= 1 ) return this.lines[name][0];
+
+   var idx = Math.floor( Math.random() * len );
+   if( idx >= len ) idx--;
+   return this.lines[name][idx];
+}
+
 simteconf.prototype.all = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 

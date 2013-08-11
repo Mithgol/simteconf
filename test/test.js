@@ -23,6 +23,11 @@ describe('Simple configuration', function(){
       assert.equal( conf.last('Witch'), 'Kriemhild Gretchen' );
       assert.deepEqual( conf.all('witch'), ['Charlotte', 'Oktavia', 'Kriemhild Gretchen'] );
    });
+   it('random selection', function(){
+      assert.equal( conf.random('samia'), 'dostika' );
+      assert.equal( conf.random('tori'), 'adito madola' );
+      assert.ok( conf.all('witch').indexOf( conf.random('witch') ) > -1 );
+   });
    it('missing lines', function(){
       assert.equal( conf.first('Mami'), null );
       assert.equal( conf.last(' '), null );
