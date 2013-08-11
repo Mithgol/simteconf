@@ -21,16 +21,23 @@ A simple text configuration file is a text file containing (on each of its l
 Example:
 
 ```
+# A name and a setting.
 UserName John Smith
 DispStatusLine Yes
+
+// A set of taglines.
 Tagline Take care of the John Smith who will shake up the world!
 Tagline Behold, I have created the smith that bloweth the coals in the fire
 Tagline We have an unusual problem here, Jane.
 ```
 
-There is always a possibility of repeating values. Sometimes intentional, like taglines in the above example. Sometimes accidental, but then the program's designer should at least make a conscious decision to take the first or the last value if it uses only one.
+Lines can be blank (or can contain only some whitespace). Such lines are ignored.
+
+There is always a possibility of several values of the same name. Sometimes intentional, like taglines in the above example. Sometimes accidental, but then the program's designer should at least make a conscious decision to take the first or the last value if it uses only one.
 
 The meaning of a named line in a simple configuration file does not depend on the presence or the order of lines that have different names.
+
+A comment (such as `# comment` or `// comment`) is also treated as a name of the line (such as `#` or `//` in the name) which is not used later (in the parent program) and ignored. It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
 
 A couple of examples in the existing Fidonet software:
 
@@ -40,6 +47,8 @@ A couple of examples in the existing Fidonet software:
    * changing defaults in the middle of the file,
    * conditional sections,
    * using (and especially redefining) environment variables.
+
+These two programs themselves do not (obviously) use simteconf, but a simteconf-using script may analyze their configuration files.
 
 # Using simteconf
 
