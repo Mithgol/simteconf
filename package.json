@@ -1,0 +1,10 @@
+{
+"name": "simteconf",
+"version": "0.0.1",
+"description": "A reader of simple text configuration files",
+"main": "simteconf.js",
+"repository": {
+   "type": "git",
+   "url": "git://github.com/Mithgol/simteconf.git"
+}
+}
