@@ -2,8 +2,6 @@ This module is a synchronous reader of **sim**ple **te**xt **conf**iguration fi
 
 It is written in JavaScript for Node.js version 0.10 or newer.
 
-The project has just started and is not in a complete state.
-
 # Installing simteconf
 
 [![(npm package version)](https://badge.fury.io/js/simteconf.png)](https://npmjs.org/package/simteconf)
