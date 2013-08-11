@@ -16,6 +16,8 @@ You may visit https://github.com/Mithgol/simteconf#readme occasionally to read 
 
 # Testing
 
+[![(build testing status)](https://travis-ci.org/Mithgol/simteconf.png?branch=master)](https://travis-ci.org/Mithgol/simteconf)
+
 It is necessary to install [Mocha](http://visionmedia.github.io/mocha/) for testing.
 
 You may install Mocha globally (`npm install mocha -g`) or locally (`npm install mocha` in the directory of `simteconf`).
