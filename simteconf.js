@@ -47,6 +47,7 @@ var simteconf = function(filename, options){
       }
       this.lines[name].push(content);
    }, this);
+   fileLines = null;
 }
 
 simteconf.prototype.first = function(name){
