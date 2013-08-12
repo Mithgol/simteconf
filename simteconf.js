@@ -5,10 +5,23 @@ var _ = require('underscore');
 _.str = require('underscore.string');
 _.mixin(_.str.exports());
 
+var startWithOneOf = function(inString, inArray){
+   if( !Array.isArray(inArray) ) return false;
+
+   var arrlen = inArray.length;
+   for( var i = 0; i < arrlen; i++ ){
+      if( _(inString).startsWith(inArray[i]) ){
+         return true;
+      }
+   }
+   return false;
+}
+
 var defaults = {
    EOL: os.EOL,
    skipEmpty: true,
-   lowercase: true
+   lowercase: true,
+   skipNames: false
 }
 
 var simteconf = function(filename, options){
@@ -36,6 +49,13 @@ var simteconf = function(filename, options){
       if( fileLine.length < 1 ) return;
 
       var name = _(fileLine).strLeft(' ');
+      if(
+         this.options.skipNames &&
+         startWithOneOf(name, this.options.skipNames)
+      ){
+         return;
+      }
+
       var content = _(fileLine).strRight(' ');
       content = content.trimLeft();
       if( this.options.skipEmpty && content.length < 1 ) return;

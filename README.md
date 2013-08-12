@@ -35,8 +35,6 @@ There is always a possibility of several values of the same name. Sometimes i
 
 The meaning of a named line in a simple configuration file does not depend on the presence or the order of lines that have different names.
 
-A comment (such as `# comment` or `// comment`) is also treated as a named line (with `#` or `//` in its name) which is not used later (in the parent program) and becomes ignored because its name is unknown. Any named line's behaviour is the same. It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
-
 A couple of examples in the existing Fidonet software:
 
 * [BinkD](http://binkd.grumbler.org/) configuration is a simple text configuration.
@@ -73,6 +71,11 @@ The constructor takes a **filename** of the configuration file and an object o
 * `skipEmpty` — if `false`, empty values are possible for some configuration names (for example, if a name is followed only with spaces on the same line). **By default,** `true` (such lines are ignored).
 
 * `lowercase` — if `true`, the names are processed with [`.toLowerCase()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) when reading from the file **and** when using the methods such as `.last(name)`. The names become case-insensitive. **By default,** `true`.
+
+* `skipNames` — if contains an array of strings, then a line is ignored if its name starts with one of these strings. **By default,** `false` (each named line is remembered by simteconf). Know the following details:
+   * A comment (such as `# comment` or `// comment`) is also treated as a named line of the configuration file (with `#` or `//` in the line's name). You may pass `skipNames: ['#', '//']` to prevent simteconf from remembering comments.
+   * However, a named line which is never used later (in the parent program that called the simteconf module) also becomes ignored. (If its name is unknown, any named line's behaviour is the same.) By passing `skipNames` array you merely reduce the memory footprint of simteconf.
+   * It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
 
 The constructor returns an object with the following methods:
 

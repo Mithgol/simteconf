@@ -11,6 +11,9 @@ describe('Integrity of the test', function(){
 
 var simteconf = require('..');
 var conf = simteconf(filename);
+var noComments = simteconf(filename, {
+   skipNames: ['//', '#']
+});
 
 describe('Simple configuration', function(){
    it('not repeated lines', function(){
@@ -31,5 +34,11 @@ describe('Simple configuration', function(){
    it('missing lines', function(){
       assert.equal( conf.first('Mami'), null );
       assert.equal( conf.last(' '), null );
+   });
+   it('comment processing', function(){
+      assert.equal( conf.first('#'), 'Sis puella magica!' );
+      assert.equal( conf.first('//'), 'the previous line contains a whitespace' );
+      assert.equal( noComments.last('#'), null );
+      assert.equal( noComments.first('//'), null );
    });
 });
