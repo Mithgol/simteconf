@@ -116,3 +116,5 @@ After that you may run `npm test` (in the directory of `simteconf`) for testi
 # License
 
 MIT License, see the `LICENSE` file.
+
+The tests use three [proper nouns](http://en.wikipedia.org/wiki/Proper_noun) and three verses from “[Puella Magi](https://wiki.puella-magi.net/)” series. Such small excerpts are widely believed to qualify as fair use.
