@@ -15,14 +15,14 @@ var startWithOneOf = function(inString, inArray){
       }
    }
    return false;
-}
+};
 
 var defaults = {
    EOL: os.EOL,
    skipEmpty: true,
    lowercase: true,
    skipNames: false
-}
+};
 
 var simteconf = function(filename, options){
    if(!( this instanceof simteconf )){
@@ -68,7 +68,7 @@ var simteconf = function(filename, options){
       this.lines[name].push(content);
    }, this);
    fileLines = null;
-}
+};
 
 simteconf.prototype.first = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
@@ -77,7 +77,7 @@ simteconf.prototype.first = function(name){
       return null;
    }
    return _(this.lines[name]).first();
-}
+};
 
 simteconf.prototype.last = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
@@ -86,7 +86,7 @@ simteconf.prototype.last = function(name){
       return null;
    }
    return _(this.lines[name]).last();
-}
+};
 
 simteconf.prototype.random = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
@@ -101,7 +101,7 @@ simteconf.prototype.random = function(name){
    var idx = Math.floor( Math.random() * len );
    if( idx >= len ) idx--;
    return this.lines[name][idx];
-}
+};
 
 simteconf.prototype.all = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
@@ -110,6 +110,6 @@ simteconf.prototype.all = function(name){
       return null;
    }
    return this.lines[name];
-}
+};
 
 module.exports = simteconf;

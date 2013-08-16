@@ -13,6 +13,7 @@
    "util-extend": "~1.0.1"
 },
 "scripts": {
+   "pretest": "jshint simteconf.js",
    "test": "mocha -R spec"
 }
 }

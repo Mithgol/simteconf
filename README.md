@@ -107,9 +107,11 @@ If the name has never been used in the configuration, `null` is returned.
 
 [![(build testing status)](https://travis-ci.org/Mithgol/simteconf.png?branch=master)](https://travis-ci.org/Mithgol/simteconf)
 
-It is necessary to install [Mocha](http://visionmedia.github.io/mocha/) for testing.
+It is necessary to install [Mocha](http://visionmedia.github.io/mocha/) and [JSHint](http://jshint.com/) for testing.
 
-You may install Mocha globally (`npm install mocha -g`) or locally (`npm install mocha` in the directory of `simteconf`).
+* You may install Mocha globally (`npm install mocha -g`) or locally (`npm install mocha` in the directory of `simteconf`).
+
+* You may install JSHint globally (`npm install jshint -g`) or locally (`npm install jshint` in the directory of `simteconf`).
 
 After that you may run `npm test` (in the directory of `simteconf`) for testing.
 
