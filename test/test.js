@@ -1,3 +1,4 @@
+/*global describe, it */
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
@@ -24,7 +25,9 @@ describe('Simple configuration', function(){
    it('gets one (or more) of repeated lines', function(){
       assert.equal( conf.first('witch'), 'Charlotte' );
       assert.equal( conf.last('Witch'), 'Kriemhild Gretchen' );
-      assert.deepEqual( conf.all('witch'), ['Charlotte', 'Oktavia', 'Kriemhild Gretchen'] );
+      assert.deepEqual(
+         conf.all('witch'), ['Charlotte', 'Oktavia', 'Kriemhild Gretchen']
+      );
    });
    it('makes random selections', function(){
       assert.equal( conf.random('samia'), 'dostika' );
@@ -37,7 +40,9 @@ describe('Simple configuration', function(){
    });
    it('processes comments', function(){
       assert.equal( conf.first('#'), 'Sis puella magica!' );
-      assert.equal( conf.first('//'), 'the previous line contains a whitespace' );
+      assert.equal(
+         conf.first('//'), 'the previous line contains a whitespace'
+      );
    });
    it('ignores comments (when told to ignore)', function(){
       assert.equal( noComments.last('#'), null );
