@@ -1,6 +1,6 @@
 {
 "name": "simteconf",
-"version": "0.1.3",
+"version": "0.1.4",
 "description": "A reader of simple text configuration files",
 "main": "simteconf.js",
 "repository": {
@@ -9,8 +9,7 @@
 },
 "dependencies": {
    "underscore": "~1.5.1",
-   "underscore.string": "~2.3.3",
-   "util-extend": "~1.0.1"
+   "underscore.string": "~2.3.3"
 },
 "scripts": {
    "pretest": "jshint simteconf.js test/test.js",

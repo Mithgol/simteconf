@@ -1,6 +1,6 @@
 var fs = require('fs');
 var os = require('os');
-var extend = require('util-extend');
+var extend = require('util')._extend;
 var _ = require('underscore');
 _.str = require('underscore.string');
 _.mixin(_.str.exports());
