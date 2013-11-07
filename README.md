@@ -46,6 +46,24 @@ A couple of examples in the existing Fidonet software:
 
 These two programs themselves do not (obviously) use simteconf, but a simteconf-using script may analyze their configuration files.
 
+## Groups of options
+
+Sometimes configuration options are organized in a simple hierarchy (one level deep), i.e. there are groups of options.
+
+In the most simple case, the configuration lines of such group is prefixed with the group's name.
+
+For example, in the following lines of [HPT](http://husky.sourceforge.net/hpt.html)'s echomail area configuration, `EchoArea` is the prefix, the echomail area's name (`R50...`) is an option's name and the rest of the line is that option's value:
+
+```
+EchoArea R50.Bone        \FIDO\MAIL\JAM\R50_Bone...
+EchoArea R50.Elections   \FIDO\MAIL\JAM\R50Elect...
+EchoArea R50.Hubs        \FIDO\MAIL\JAM\R50_Hubs...
+EchoArea R50.SysOp       \FIDO\MAIL\JAM\R50Sysop...
+EchoArea R50.SysOp.Club  \FIDO\MAIL\JAM\R50SysCl...
+EchoArea R50.SysOp.Info  \FIDO\MAIL\JAM\R50SysIn...
+EchoArea R50.SysOp.Talk  \FIDO\MAIL\JAM\R50SysTa...
+```
+
 # Using simteconf
 
 Require the installed module and use it to read your configuration. Continuing the first of the examples given above,
@@ -76,6 +94,8 @@ The constructor takes a **filename** of the configuration file and an object o
    * A comment (such as `# comment` or `// comment`) is also treated as a named line of the configuration file (with `#` or `//` in the line's name). You may pass `skipNames: ['#', '//']` to prevent simteconf from remembering comments.
    * However, a named line which is never used later (in the parent program that called the simteconf module) also becomes ignored. (If its name is unknown, any named line's behaviour is the same.) By passing `skipNames` array you merely reduce the memory footprint of simteconf.
    * It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
+
+* `prefixGroups` — if contains an array of strings, these strings are treated as the names of configuration groups that precede options belonging to a group.
 
 The constructor returns an object with the following methods:
 

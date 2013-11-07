@@ -21,7 +21,8 @@ var defaults = {
    EOL: os.EOL,
    skipEmpty: true,
    lowercase: true,
-   skipNames: false
+   skipNames: false,
+   prefixGroups: []
 };
 
 var simteconf = function(filename, options){
