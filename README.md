@@ -52,9 +52,12 @@ Sometimes configuration options are organized in a simple hierarchy (one leve
 
 In the most simple case, the configuration lines of such group is prefixed with the group's name.
 
-For example, in the following lines of [HPT](http://husky.sourceforge.net/hpt.html)'s echomail area configuration, `EchoArea` is the prefix, the echomail area's name (`R50...`) is an option's name and the rest of the line is that option's value:
+For example, in the following lines of [HPT](http://husky.sourceforge.net/hpt.html)'s echomail area configuration, `LocalArea` or `EchoArea` is the prefix, the echomail area's name (`R50...`) is an option's name and the rest of the line is that option's value:
 
 ```
+LocalArea Carbon.Copies  \FIDO\MAIL\JAM\Carbons...
+LocalArea FGHIGet        \FIDO\MAIL\FGHIGet...
+
 EchoArea R50.Bone        \FIDO\MAIL\JAM\R50_Bone...
 EchoArea R50.Elections   \FIDO\MAIL\JAM\R50Elect...
 EchoArea R50.Hubs        \FIDO\MAIL\JAM\R50_Hubs...
@@ -63,6 +66,32 @@ EchoArea R50.SysOp.Club  \FIDO\MAIL\JAM\R50SysCl...
 EchoArea R50.SysOp.Info  \FIDO\MAIL\JAM\R50SysIn...
 EchoArea R50.SysOp.Talk  \FIDO\MAIL\JAM\R50SysTa...
 ```
+
+For another example, that's how a [GoldED+](http://golded-plus.sourceforge.net/) sounds for several events may be defined in the configuration:
+
+```
+Event Arealist       Play matrix_wow.wav
+Event AskYesNo       Play matrix_what_is_the.wav
+Event Attention      Play Enterprise.wav
+Event DosShell       Play matrix_bullet.wav
+Event EditComment    Play detected.wav
+Event EditCompletion Play xp_notify.wav
+Event EndOfMsgs      Play barrier.wav
+Event ErrorFatal     Play SOS
+Event Exit           Play goodbye_lord.wav
+Event JobDone        Play Sound45.wav
+Event JobFailed      Play TheEnd
+Event MsgDeleting    Play matrix_shmyack.wav
+Event MsgFromYou     Play online.wav
+Event MsgIsLocal     Play wirr.wav
+Event MsgIsTwit      Play Sound7.wav
+Event MsgToYou       Play incoming.wav
+Event SearchFailed   Play matrix_wow.wav
+Event SearchSuccess  Play search_finished.wav
+Event Startup        Play DeathNote.wav
+```
+
+In this example, `Event` is the group's name. The individual options' names are `Arealist`, `AskYesNo`, `Attention`, `DosShell`, `EditComment`, `EditCompletion`, `EndOfMsgs`, `ErrorFatal`, `Exit`, `JobDone`, `JobFailed`, `MsgDeleting`, `MsgFromYou`, `MsgIsLocal`, `MsgIsTwit`, `MsgToYou`, `SearchFailed`, `SearchSuccess`, `Startup`. The rest is the options' values.
 
 # Using simteconf
 
@@ -88,40 +117,50 @@ The constructor takes a **filename** of the configuration file and an object o
 
 * `skipEmpty` — if `false`, empty values are possible for some configuration names (for example, if a name is followed only with spaces on the same line). **By default,** `true` (such lines are ignored).
 
-* `lowercase` — if `true`, the names are processed with [`.toLowerCase()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) when reading from the file **and** when using the methods such as `.last(name)`. The names become case-insensitive. **By default,** `true`.
+* `lowercase` — if `true`, the names are processed with [`.toLowerCase()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) when reading from the file **and** when using the methods such as `.last(name)` or `.group(name)`. The names become case-insensitive. **By default,** `true`. Does also affect the contents of `skipNames` and `prefixGroups` (see below).
 
 * `skipNames` — if contains an array of strings, then a line is ignored if its name starts with one of these strings. **By default,** `false` (each named line is remembered by simteconf). Know the following details:
    * A comment (such as `# comment` or `// comment`) is also treated as a named line of the configuration file (with `#` or `//` in the line's name). You may pass `skipNames: ['#', '//']` to prevent simteconf from remembering comments.
    * However, a named line which is never used later (in the parent program that called the simteconf module) also becomes ignored. (If its name is unknown, any named line's behaviour is the same.) By passing `skipNames` array you merely reduce the memory footprint of simteconf.
    * It is not (currently) possible to pass an exhaustive list of known names to simteconf and to trade forward compatibility for error reporting.
 
-* `prefixGroups` — if contains an array of strings, these strings are treated as the names of configuration groups that precede options belonging to a group.
+* `prefixGroups` — if contains an array of strings, these strings are treated as the names of configuration groups that precede options belonging to a group. (In the above examples, `['LocalArea', 'EchoArea']` for HPT's area configuration, `['Event']` for GoldED+ events.)
 
-The constructor returns an object with the following methods:
+The constructor returns the top level configuration object that has the following method:
 
-### last(name)
+### group(name)
+
+Returns a group of configuration lines.
+
+The group has to be previously defined by the `prefixGroup` in the constructor's options **and** has to actually exist in the configuration. Otherwise an empty group is returned, i.e. the accessing methods (`.last`, `.first`, `.all`, `.random`) return `null`.
+
+### Accessing configuration lines
+
+These methods can be used both in the configuration's object (to access top-level configuration lines) and in a group's object (to access the lines within that group):
+
+#### last(name)
 
 If one or more configuration lines have had the **name**, returns the value from the last of such lines.
 
-If the name has never been used in the configuration, `null` is returned.
+If the name has never been used in the configuration (of the top level or the group where the method is called), `null` is returned.
 
-### first(name)
+#### first(name)
 
 If one or more configuration lines have had the **name**, returns the value from the first of such lines.
 
-If the name has never been used in the configuration, `null` is returned.
+If the name has never been used in the configuration (of the top level or the group where the method is called), `null` is returned.
 
-### all(name)
+#### all(name)
 
 If one or more configuration lines have had the **name**, returns the array of values from such lines (in order of appearance).
 
-If the name has never been used in the configuration, `null` is returned.
+If the name has never been used in the configuration (of the top level or the group where the method is called), `null` is returned.
 
-### random(name)
+#### random(name)
 
 If one or more configuration lines have had the **name**, returns the value from a randomly chosen one of such lines.
 
-If the name has never been used in the configuration, `null` is returned.
+If the name has never been used in the configuration (of the top level or the group where the method is called), `null` is returned.
 
 # Testing simteconf
 

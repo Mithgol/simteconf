@@ -17,12 +17,87 @@ var startWithOneOf = function(inString, inArray){
    return false;
 };
 
+var beforeSpace = function(inString){
+   if( inString.indexOf(' ') === -1 ){
+      return inString;
+   }
+   return _(inString).strLeft(' ');
+};
+
+var afterSpace = function(inString){
+   if( inString.indexOf(' ') === -1 ){
+      return '';
+   }
+   return _(inString).strRight(' ').trimLeft();
+};
+
 var defaults = {
    EOL: os.EOL,
    skipEmpty: true,
    lowercase: true,
-   skipNames: false,
-   prefixGroups: []
+   skipNames: false,    // possibly array
+   prefixGroups: false  // possibly array
+};
+
+var groupDefaults = {
+   lowercase: true
+};
+
+var lineGroup = function(options){
+   if(!( this instanceof lineGroup )){
+      return new lineGroup(options);
+   }
+   this.options = extend(groupDefaults, options);
+   this.lines = {};
+};
+
+lineGroup.prototype.push = function(name, value){
+   if( !_(this.lines).has(name) ){
+      this.lines[name] = [];
+   }
+   this.lines[name].push(value);
+};
+
+lineGroup.prototype.first = function(name){
+   if( this.options.lowercase ) name = name.toLowerCase();
+
+   if( !_(this.lines).has(name) ){
+      return null;
+   }
+   return _(this.lines[name]).first();
+};
+
+lineGroup.prototype.last = function(name){
+   if( this.options.lowercase ) name = name.toLowerCase();
+
+   if( !_(this.lines).has(name) ){
+      return null;
+   }
+   return _(this.lines[name]).last();
+};
+
+lineGroup.prototype.random = function(name){
+   if( this.options.lowercase ) name = name.toLowerCase();
+
+   if( !_(this.lines).has(name) ){
+      return null;
+   }
+
+   var len = this.lines[name].length;
+   if( len <= 1 ) return this.lines[name][0];
+
+   var idx = Math.floor( Math.random() * len );
+   if( idx >= len ) idx--;
+   return this.lines[name][idx];
+};
+
+lineGroup.prototype.all = function(name){
+   if( this.options.lowercase ) name = name.toLowerCase();
+
+   if( !_(this.lines).has(name) ){
+      return null;
+   }
+   return this.lines[name];
 };
 
 var simteconf = function(filename, options){
@@ -31,7 +106,25 @@ var simteconf = function(filename, options){
    }
    this.options = extend(defaults, options);
 
-   this.lines = {};
+   if( this.options.lowercase ){
+      if( this.options.skipNames ){
+         this.options.skipNames = _(this.options.skipNames).map(
+            function(value){
+               return value.toLowerCase();
+            }
+         );
+      }
+      if( this.options.prefixGroups ){
+         this.options.prefixGroups = _(this.options.prefixGroups).map(
+            function(value){
+               return value.toLowerCase();
+            }
+         );
+      }
+   }
+
+   this.mainGroup = this.createLineGroup(this.options);
+   this.groups = {};
 
    var contents, fileLines;
    try{
@@ -49,7 +142,9 @@ var simteconf = function(filename, options){
       fileLine = fileLine.trim();
       if( fileLine.length < 1 ) return;
 
-      var name = _(fileLine).strLeft(' ');
+      var name = beforeSpace(fileLine);
+      if( this.options.lowercase ) name = name.toLowerCase();
+
       if(
          this.options.skipNames &&
          startWithOneOf(name, this.options.skipNames)
@@ -57,60 +152,63 @@ var simteconf = function(filename, options){
          return;
       }
 
-      var content = _(fileLine).strRight(' ');
+      var targetGroup = this.mainGroup;
+      if(
+         this.options.prefixGroups &&
+         this.options.prefixGroups.indexOf(name) !== -1
+      ){
+         // ignore the line if there's nothing after the group's prefix
+         fileLine = afterSpace(fileLine);
+         if( fileLine.length < 1 ) return;
+
+         // grab the alternate target group
+         if( !_(this.groups).has(name) ){
+            this.groups[name] = this.createLineGroup(this.options);
+         }
+         targetGroup = this.groups[name];
+
+         // the group's name is no longer necessary, read the option's name
+         name = beforeSpace(fileLine);
+         if( this.options.lowercase ) name = name.toLowerCase();
+      } // fileLine is carefully altered, it's OK to get the content from it
+      var content = afterSpace(fileLine);
       content = content.trimLeft();
       if( this.options.skipEmpty && content.length < 1 ) return;
 
-      if( this.options.lowercase ) name = name.toLowerCase();
-
-      if( !_(this.lines).has(name) ){
-         this.lines[name] = [];
-      }
-      this.lines[name].push(content);
+      targetGroup.push(name, content);
    }, this);
    fileLines = null;
 };
 
-simteconf.prototype.first = function(name){
+simteconf.prototype.createLineGroup = function(options){
+   return lineGroup({
+      lowercase: options.lowercase
+   });
+};
+
+simteconf.prototype.group = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.lines).has(name) ){
-      return null;
+   if( !_(this.groups).has(name) ){
+      return this.createLineGroup(this.options);
    }
-   return _(this.lines[name]).first();
+   return this.groups[name];
+};
+
+simteconf.prototype.first = function(name){
+   return this.mainGroup.first(name);
 };
 
 simteconf.prototype.last = function(name){
-   if( this.options.lowercase ) name = name.toLowerCase();
-
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
-   return _(this.lines[name]).last();
+   return this.mainGroup.last(name);
 };
 
 simteconf.prototype.random = function(name){
-   if( this.options.lowercase ) name = name.toLowerCase();
-
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
-
-   var len = this.lines[name].length;
-   if( len <= 1 ) return this.lines[name][0];
-
-   var idx = Math.floor( Math.random() * len );
-   if( idx >= len ) idx--;
-   return this.lines[name][idx];
+   return this.mainGroup.random(name);
 };
 
 simteconf.prototype.all = function(name){
-   if( this.options.lowercase ) name = name.toLowerCase();
-
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
-   return this.lines[name];
+   return this.mainGroup.all(name);
 };
 
 module.exports = simteconf;
