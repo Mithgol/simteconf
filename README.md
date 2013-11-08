@@ -111,9 +111,11 @@ var taglines = config.all('tagline'); // array of taglines
 
 ### simteconf(filename, options)
 
-The constructor takes a **filename** of the configuration file and an object of **options**. The latter are:
+The constructor takes a **filename** of the configuration file and an object of **options**. This object has the following optional properties:
 
 * `EOL` — line separator of the file. **By default,** [`os.EOL`](http://nodejs.org/docs/latest/api/os.html#os_os_eol) is used.
+
+* `encoding` — the encoding of the file. **By default,** `'utf8'` is used. You may use any of the [encodings](http://nodejs.org/docs/latest/api/buffer.html#buffer_buffer) supported by the Node.js Buffer module. Or any of the encodings [defined](https://github.com/Mithgol/node-singlebyte/#isencodingencodingname) in my `singlebyte` module.
 
 * `skipEmpty` — if `false`, empty values are possible for some configuration names (for example, if a name is followed only with spaces on the same line). **By default,** `true` (such lines are ignored).
 

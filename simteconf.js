@@ -1,6 +1,7 @@
 var fs = require('fs');
 var os = require('os');
 var extend = require('util')._extend;
+var sb = require('singlebyte');
 var _ = require('underscore');
 _.str = require('underscore.string');
 _.mixin(_.str.exports());
@@ -33,6 +34,7 @@ var afterSpace = function(inString){
 
 var defaults = {
    EOL: os.EOL,
+   encoding: 'utf8',
    skipEmpty: true,
    lowercase: true,
    skipNames: false,    // possibly array
@@ -126,14 +128,14 @@ var simteconf = function(filename, options){
    this.mainGroup = this.createLineGroup(this.options);
    this.groups = {};
 
-   var contents, fileLines;
+   var readBuffer, contents, fileLines;
    try{
-      contents = fs.readFileSync(filename, {
-         encoding: 'utf8'
-      });
-   }catch(e){
+      readBuffer = fs.readFileSync(filename);
+   } catch(e) {
       return;
    }
+   contents = sb.bufToStr(readBuffer, this.options.encoding);
+   readBuffer = null;
 
    fileLines = contents.split( this.options.EOL );
    contents = null;
