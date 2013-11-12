@@ -111,7 +111,7 @@ var taglines = config.all('tagline'); // array of taglines
 
 ### simteconf(filename, options)
 
-The constructor takes a **filename** of the configuration file and an object of **options**. This object has the following optional properties:
+The constructor takes a `filename` of the configuration file and an object of `options`. This object has the following optional properties:
 
 * `EOL` — line separator of the file. **By default,** [`os.EOL`](http://nodejs.org/docs/latest/api/os.html#os_os_eol) is used.
 
@@ -128,7 +128,11 @@ The constructor takes a **filename** of the configuration file and an object o
 
 * `prefixGroups` — if contains an array of strings, these strings are treated as the names of configuration groups that precede options belonging to a group. (In the above examples, `['LocalArea', 'EchoArea']` for HPT's area configuration, `['Event']` for GoldED+ events.)
 
-The constructor returns the top level configuration object that has the following method:
+The constructor returns the top level configuration object.
+
+If the given `filename` is not a string or the designated file does not exist, the returned object contains an empty configuration, i.e. the accessing methods (`.last`, `.first`, `.all`, `.random`) return `null`.
+
+The top level configuration object that has the following method:
 
 ### group(name)
 

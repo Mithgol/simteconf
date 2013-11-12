@@ -129,6 +129,7 @@ var simteconf = function(filename, options){
    this.groups = {};
 
    var readBuffer, contents, fileLines;
+   if( typeof filename !== 'string' ) return;
    try{
       readBuffer = fs.readFileSync(filename);
    } catch(e) {
