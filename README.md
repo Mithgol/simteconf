@@ -144,6 +144,14 @@ The group has to be previously defined by the `prefixGroup` in the construct
 
 These methods can be used both in the configuration's object (to access top-level configuration lines) and in a group's object (to access the lines within that group):
 
+#### names()
+
+Returns an array of the names that configuration lines have.
+
+The ignored lines are not included.
+
+The names are affected by the `lowercase` option (see above).
+
 #### last(name)
 
 If one or more configuration lines have had the **name**, returns the value from the last of such lines.

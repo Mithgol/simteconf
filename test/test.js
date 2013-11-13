@@ -63,4 +63,14 @@ describe('Simple configuration', function(){
       assert.equal( witchConf.last('WItch'), null);
       assert.equal( witchConf.random('wiTCH'), null);
    });
+   it('lists names of configuration lines', function(){
+      assert.deepEqual(
+         witchConf.group('witch').names(),
+         ['charlotte', 'oktavia', 'kriemhild']
+      );
+      assert.deepEqual(
+         noComments.names(),
+         ['samia', 'ari', 'tori', 'witch']
+      );
+   });
 });

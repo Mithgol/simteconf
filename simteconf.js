@@ -60,6 +60,10 @@ lineGroup.prototype.push = function(name, value){
    this.lines[name].push(value);
 };
 
+lineGroup.prototype.names = function(){
+   return Object.keys(this.lines);
+};
+
 lineGroup.prototype.first = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
@@ -196,6 +200,10 @@ simteconf.prototype.group = function(name){
       return this.createLineGroup(this.options);
    }
    return this.groups[name];
+};
+
+simteconf.prototype.names = function(){
+   return this.mainGroup.names();
 };
 
 simteconf.prototype.first = function(name){
