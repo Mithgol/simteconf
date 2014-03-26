@@ -1,4 +1,4 @@
-This module is a synchronous reader of **sim**ple **te**xt **conf**iguration files. It is called **simteconf**.
+This module is a synchronous reader of <b>sim</b>ple <b>te</b>xt <b>conf</b>iguration files. It is called **simteconf**.
 
 It is written in JavaScript for Node.js version 0.10 or newer.
 
