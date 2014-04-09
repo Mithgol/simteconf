@@ -178,7 +178,7 @@ If the name has never been used in the configuration (of the top level or
 
 # Testing simteconf
 
-[![(build testing status)](https://travis-ci.org/Mithgol/simteconf.png?branch=master)](https://travis-ci.org/Mithgol/simteconf)
+[![(build testing status)](https://travis-ci.org/Mithgol/simteconf.svg?branch=master)](https://travis-ci.org/Mithgol/simteconf)
 
 It is necessary to install [Mocha](http://visionmedia.github.io/mocha/) and [JSHint](http://jshint.com/) for testing.
 
