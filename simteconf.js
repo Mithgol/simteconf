@@ -1,6 +1,6 @@
 var fs = require('fs');
 var os = require('os');
-var extend = require('util')._extend;
+var extend = require('extend');
 var sb = require('singlebyte');
 var _ = require('underscore');
 _.str = require('underscore.string');
@@ -49,7 +49,7 @@ var lineGroup = function(options){
    if(!( this instanceof lineGroup )){
       return new lineGroup(options);
    }
-   this.options = extend(groupDefaults, options);
+   this.options = extend({}, groupDefaults, options);
    this.lines = {};
 };
 
@@ -110,7 +110,7 @@ var simteconf = function(filename, options){
    if(!( this instanceof simteconf )){
       return new simteconf(filename, options);
    }
-   this.options = extend(defaults, options);
+   this.options = extend({}, defaults, options);
 
    if( this.options.lowercase ){
       if( this.options.skipNames ){
