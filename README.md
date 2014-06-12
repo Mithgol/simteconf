@@ -115,7 +115,7 @@ The constructor takes a `filename` of the configuration file and an object of 
 
 * `EOL` — line separator of the file. **By default,** [`os.EOL`](http://nodejs.org/docs/latest/api/os.html#os_os_eol) is used.
 
-* `encoding` — the encoding of the file. **By default,** `'utf8'` is used. You may use any of the [encodings](http://nodejs.org/docs/latest/api/buffer.html#buffer_buffer) supported by the Node.js Buffer module. Or any of the encodings [defined](https://github.com/Mithgol/node-singlebyte/#isencodingencodingname) in my `singlebyte` module.
+* `encoding` — the encoding of the file. **By default,** `'utf8'` is used. You may use any of the [encodings](http://nodejs.org/docs/latest/api/buffer.html#buffer_buffer) supported by the Node.js Buffer module. Or any of the encodings defined by [`iconv-lite`](https://github.com/ashtuchkin/iconv-lite) module.
 
 * `skipEmpty` — if `false`, empty values are possible for some configuration names (for example, if a name is followed only with spaces on the same line). **By default,** `true` (such lines are ignored).
 

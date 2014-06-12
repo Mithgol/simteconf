@@ -1,10 +1,12 @@
 var fs = require('fs');
 var os = require('os');
 var extend = require('extend');
-var sb = require('singlebyte');
+
 var _ = require('underscore');
 _.str = require('underscore.string');
 _.mixin(_.str.exports());
+
+require('iconv-lite').extendNodeEncodings();
 
 var startWithOneOf = function(inString, inArray){
    if( !Array.isArray(inArray) ) return false;
@@ -139,7 +141,7 @@ var simteconf = function(filename, options){
    } catch(e) {
       return;
    }
-   contents = sb.bufToStr(readBuffer, this.options.encoding);
+   contents = readBuffer.toString(this.options.encoding);
    readBuffer = null;
 
    fileLines = contents.split( this.options.EOL );
