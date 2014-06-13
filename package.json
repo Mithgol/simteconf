@@ -1,6 +1,6 @@
 {
 "name": "simteconf",
-"version": "0.6.0",
+"version": "0.6.1",
 "description": "A reader of simple text configuration files",
 "main": "simteconf.js",
 "repository": {
@@ -9,7 +9,7 @@
 },
 "dependencies": {
    "extend": "~1.2.1",
-   "iconv-lite": "~0.4.1",
+   "iconv-lite": "~0.4.2",
    "underscore": "~1.5.1",
    "underscore.string": "~2.3.3"
 },
