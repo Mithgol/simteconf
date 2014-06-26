@@ -1,8 +1,10 @@
 {
 "name": "simteconf",
-"version": "0.6.1",
-"description": "A reader of simple text configuration files",
 "main": "simteconf.js",
+"version": "0.6.2",
+"description": "A reader of simple text configuration files",
+"author": { "name": "Mithgol the Webmaster" },
+"license": "MIT",
 "repository": {
    "type": "git",
    "url": "git://github.com/Mithgol/simteconf.git"
