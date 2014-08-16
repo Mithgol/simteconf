@@ -4,7 +4,7 @@ It is written in JavaScript for Node.js version 0.10 or newer.
 
 # Installing simteconf
 
-[![(npm package version)](https://nodei.co/npm/simteconf.png?downloads=true)](https://npmjs.org/package/simteconf)
+[![(npm package version)](https://nodei.co/npm/simteconf.png?downloads=true)](https://npmjs.org/package/simteconf) [![(a histogram of downloads)](https://nodei.co/npm-dl/simteconf.png?months=3)](https://npmjs.org/package/simteconf)
 
 * Latest packaged version: `npm install simteconf`
 
