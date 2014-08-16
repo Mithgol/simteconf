@@ -95,7 +95,9 @@ In this example, `Event` is the group's name. The individual options' names ar
 
 # Using simteconf
 
-Require the installed module and use it to read your configuration. Continuing the first of the examples given above,
+Require the installed module and use it to read your configuration.
+
+For example (and continuing the first of the examples given above),
 
 ```js
 var simteconf = require('simteconf');
