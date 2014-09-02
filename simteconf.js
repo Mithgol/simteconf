@@ -116,14 +116,14 @@ var simteconf = function(filename, options){
 
    if( this.options.lowercase ){
       if( this.options.skipNames ){
-         this.options.skipNames = _(this.options.skipNames).map(
+         this.options.skipNames = this.options.skipNames.map(
             function(value){
                return value.toLowerCase();
             }
          );
       }
       if( this.options.prefixGroups ){
-         this.options.prefixGroups = _(this.options.prefixGroups).map(
+         this.options.prefixGroups = this.options.prefixGroups.map(
             function(value){
                return value.toLowerCase();
             }
@@ -147,7 +147,7 @@ var simteconf = function(filename, options){
    fileLines = contents.split( this.options.EOL );
    contents = null;
 
-   _(fileLines).each(function(fileLine){
+   fileLines.forEach(function(fileLine){
       fileLine = fileLine.trim();
       if( fileLine.length < 1 ) return;
 
