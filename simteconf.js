@@ -1,10 +1,12 @@
 var fs = require('fs');
 var os = require('os');
 var extend = require('extend');
-
 var _ = require('underscore');
-_.str = require('underscore.string');
-_.mixin(_.str.exports());
+
+var startsWith = require('underscore.string/startsWith');
+var strLeft = require('underscore.string/strLeft');
+var strRight = require('underscore.string/strRight');
+var ltrim = require('underscore.string/ltrim');
 
 require('iconv-lite').extendNodeEncodings();
 
@@ -13,7 +15,7 @@ var startWithOneOf = function(inString, inArray){
 
    var arrlen = inArray.length;
    for( var i = 0; i < arrlen; i++ ){
-      if( _(inString).startsWith(inArray[i]) ){
+      if( startsWith(inString, inArray[i]) ){
          return true;
       }
    }
@@ -24,14 +26,14 @@ var beforeSpace = function(inString){
    if( inString.indexOf(' ') === -1 ){
       return inString;
    }
-   return _(inString).strLeft(' ');
+   return strLeft(inString, ' ');
 };
 
 var afterSpace = function(inString){
    if( inString.indexOf(' ') === -1 ){
       return '';
    }
-   return _(inString).strRight(' ').trimLeft();
+   return ltrim( strRight(inString, ' ') );
 };
 
 var defaults = {
@@ -181,7 +183,6 @@ var simteconf = function(filename, options){
          if( this.options.lowercase ) name = name.toLowerCase();
       } // fileLine is carefully altered, it's OK to get the content from it
       var content = afterSpace(fileLine);
-      content = content.trimLeft();
       if( this.options.skipEmpty && content.length < 1 ) return;
 
       targetGroup.push(name, content);
