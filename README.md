@@ -1,10 +1,12 @@
+[![(a histogram of downloads)](https://nodei.co/npm-dl/simteconf.png?height=3)](https://npmjs.org/package/simteconf)
+
 This module is a synchronous reader of <b>sim</b>ple <b>te</b>xt <b>conf</b>iguration files. It is called **simteconf**.
 
 This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run. (Node.js version 0.10.x or 0.12.x is recommended. The latest stable [io.js](https://iojs.org/) is fine too.)
 
 # Installing simteconf
 
-[![(npm package version)](https://nodei.co/npm/simteconf.png?downloads=true)](https://npmjs.org/package/simteconf) [![(a histogram of downloads)](https://nodei.co/npm-dl/simteconf.png?months=3)](https://npmjs.org/package/simteconf)
+[![(npm package version)](https://nodei.co/npm/simteconf.png?downloads=true&downloadRank=true)](https://npmjs.org/package/simteconf)
 
 * Latest packaged version: `npm install simteconf`
 
