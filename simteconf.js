@@ -1,7 +1,6 @@
 var fs = require('fs');
 var os = require('os');
 var extend = require('extend');
-var _ = require('underscore');
 
 var startsWith = require('underscore.string/startsWith');
 var strLeft = require('underscore.string/strLeft');
@@ -58,9 +57,8 @@ var lineGroup = function(options){
 };
 
 lineGroup.prototype.push = function(name, value){
-   if( !_(this.lines).has(name) ){
-      this.lines[name] = [];
-   }
+   if( typeof this.lines[name] === 'undefined' ) this.lines[name] = [];
+
    this.lines[name].push(value);
 };
 
@@ -71,27 +69,24 @@ lineGroup.prototype.names = function(){
 lineGroup.prototype.first = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
-   return _(this.lines[name]).first();
+   if( typeof this.lines[name] === 'undefined' ) return null;
+
+   return this.lines[name][0];
 };
 
 lineGroup.prototype.last = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
-   return _(this.lines[name]).last();
+   if( typeof this.lines[name] === 'undefined' ) return null;
+
+   var len = this.lines[name].length;
+   return this.lines[name][len-1];
 };
 
 lineGroup.prototype.random = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
+   if( typeof this.lines[name] === 'undefined' ) return null;
 
    var len = this.lines[name].length;
    if( len <= 1 ) return this.lines[name][0];
@@ -104,9 +99,8 @@ lineGroup.prototype.random = function(name){
 lineGroup.prototype.all = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.lines).has(name) ){
-      return null;
-   }
+   if( typeof this.lines[name] === 'undefined' ) return null;
+
    return this.lines[name];
 };
 
@@ -173,7 +167,7 @@ var simteconf = function(filename, options){
          if( fileLine.length < 1 ) return;
 
          // grab the alternate target group
-         if( !_(this.groups).has(name) ){
+         if( typeof this.groups[name] === 'undefined' ){
             this.groups[name] = this.createLineGroup(this.options);
          }
          targetGroup = this.groups[name];
@@ -199,7 +193,7 @@ simteconf.prototype.createLineGroup = function(options){
 simteconf.prototype.group = function(name){
    if( this.options.lowercase ) name = name.toLowerCase();
 
-   if( !_(this.groups).has(name) ){
+   if( typeof this.groups[name] === 'undefined' ){
       return this.createLineGroup(this.options);
    }
    return this.groups[name];
