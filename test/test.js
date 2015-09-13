@@ -13,7 +13,8 @@ describe('The test itself', function(){
 var simteconf = require('..');
 var conf = simteconf(filename);
 var noComments = simteconf(filename, {
-   skipNames: ['//', '#']
+   skipNames: ['//', '#'],
+   encoding: 'windows-1251'
 });
 var witchConf = simteconf(filename, {
    skipNames: ['//', '#'],
