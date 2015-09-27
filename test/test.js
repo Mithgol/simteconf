@@ -28,6 +28,12 @@ describe('Simple configuration', function(){
       assert.equal( conf.last('ari'), 'adritida' );
       assert.deepEqual( conf.all('tori'), ['adito madola'] );
    });
+   it('applies a decoder provided by the iconv-lite module', function(){
+      assert.equal(
+         noComments.last('verse'),
+         '«Ты, Мадока, не робей!» — вдруг промолвил ей Кюбей.'
+      );
+   });
    it('gets one (or more) of repeated lines', function(){
       assert.equal( conf.first('witch'), 'Charlotte' );
       assert.equal( conf.last('Witch'), 'Kriemhild Gretchen' );
@@ -71,7 +77,7 @@ describe('Simple configuration', function(){
       );
       assert.deepEqual(
          noComments.names(),
-         ['samia', 'ari', 'tori', 'witch']
+         ['samia', 'ari', 'tori', 'witch', 'verse']
       );
    });
 });
