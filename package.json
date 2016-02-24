@@ -1,7 +1,7 @@
 {
 "name": "simteconf",
 "main": "simteconf.js",
-"version": "0.6.14",
+"version": "0.6.15",
 "description": "A reader of simple text configuration files",
 "author": { "name": "Mithgol the Webmaster" },
 "license": "MIT",
@@ -12,7 +12,7 @@
 "dependencies": {
    "extend": "~3.0.0",
    "iconv-lite": "0.4.11",
-   "underscore.string": "~3.2.0"
+   "underscore.string": "~3.3.4"
 },
 "scripts": {
    "pretest": "jshint simteconf.js test/test.js",
