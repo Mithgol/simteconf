@@ -1,13 +1,12 @@
 var fs = require('fs');
 var os = require('os');
 var extend = require('extend');
+var iconv = require('iconv-lite');
 
 var startsWith = require('underscore.string/startsWith');
 var strLeft = require('underscore.string/strLeft');
 var strRight = require('underscore.string/strRight');
 var ltrim = require('underscore.string/ltrim');
-
-require('iconv-lite').extendNodeEncodings();
 
 var startWithOneOf = function(inString, inArray){
    if( !Array.isArray(inArray) ) return false;
@@ -137,7 +136,7 @@ var simteconf = function(filename, options){
    } catch(e) {
       return;
    }
-   contents = readBuffer.toString(this.options.encoding);
+   contents = iconv.decode(readBuffer, this.options.encoding);
    readBuffer = null;
 
    fileLines = contents.split( this.options.EOL );
