@@ -117,7 +117,8 @@ var taglines = config.all('tagline'); // array of taglines
 
 The constructor takes a `filename` of the configuration file and an object of `options`. This object has the following optional properties:
 
-* `EOL` — line separator of the file. **By default,** [`os.EOL`](http://nodejs.org/docs/latest/api/os.html#os_os_eol) is used.
+* `EOL` — line separator of the file. **By default,** `/\r|\n/` is used.
+   * Before the version 0.7.0, [`os.EOL`](http://nodejs.org/docs/latest/api/os.html#os_os_eol) was the default. Unfortunately, that previous setting was less effective in parsing configuration files of software that deviates from the defaults of operating systems.
 
 * `encoding` — the encoding of the file. **By default,** `'utf8'` is used. You may use any of the [encodings](http://nodejs.org/docs/latest/api/buffer.html#buffer_buffer) supported by the Node.js Buffer module. Or any of the encodings defined by [`iconv-lite`](https://github.com/ashtuchkin/iconv-lite) module.
 

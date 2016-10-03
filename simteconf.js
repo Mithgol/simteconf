@@ -1,5 +1,4 @@
 var fs = require('fs');
-var os = require('os');
 var extend = require('extend');
 var iconv = require('iconv-lite');
 
@@ -35,7 +34,7 @@ var afterSpace = function(inString){
 };
 
 var defaults = {
-   EOL: os.EOL,
+   EOL: /\r|\n/,
    encoding: 'utf8',
    skipEmpty: true,
    lowercase: true,
