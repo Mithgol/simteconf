@@ -185,7 +185,7 @@ If the name has never been used in the configuration (of the top level or
 
 [![(build testing status)](https://img.shields.io/travis/Mithgol/simteconf/master.svg?style=plastic)](https://travis-ci.org/Mithgol/simteconf)
 
-It is necessary to install [Mocha](http://visionmedia.github.io/mocha/) and [JSHint](http://jshint.com/) for testing.
+It is necessary to install [Mocha](https://mochajs.org/) and [JSHint](http://jshint.com/) for testing.
 
 * You may install Mocha globally (`npm install mocha -g`) or locally (`npm install mocha` in the directory of `simteconf`).
 
