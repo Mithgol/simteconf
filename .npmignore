@@ -30,3 +30,8 @@ package-lock.json
 
 # NPM error logs
 npm-debug.log
+
+# .npmignore should ignore tests and Git stuff
+test
+.gitignore
+.git
