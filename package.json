@@ -1,7 +1,7 @@
 {
 "name": "simteconf",
 "main": "simteconf.js",
-"version": "0.7.0",
+"version": "1.0.0",
 "description": "A reader of simple text configuration files",
 "author": { "name": "Mithgol the Webmaster" },
 "license": "MIT",

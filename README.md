@@ -2,7 +2,11 @@
 
 This module is a synchronous reader of <b>sim</b>ple <b>te</b>xt <b>conf</b>iguration files. It is called **simteconf**.
 
-This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run. It is tested against Node.js v0.10.x, Node.js v0.12.x, Node.js v4.0.x and the latest stable version of io.js.
+This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run.
+   * Starting from v1.0.0, simteconf requires Node.js version 4.0.0 or newer because it is rewritten in ECMAScript 2015 (ES6).
+   * You may run older versions of simteconf (that precede v1.0.0) on older Node.js versions (0.10.x or 0.12.x). However, those older versions of Node.js are themselves not maintained by their developers after 2016-12-31.
+
+It is tested against Node.js v4.x, Node.js v5.x, Node.js v6.x, Node.js v7.x and the latest stable version of Node.js.
 
 # Installing simteconf
 

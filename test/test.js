@@ -4,8 +4,8 @@ var path = require('path');
 var assert = require('assert');
 var filename = path.join(__dirname, 'simteconf.conf');
 
-describe('The test itself', function(){
-   it('contains the test file', function(){
+describe('The test itself', () => {
+   it('contains the test file', () => {
       assert.ok( fs.existsSync(filename) );
    });
 });
@@ -22,55 +22,55 @@ var witchConf = simteconf(filename, {
    skipEmpty: false
 });
 
-describe('Simple configuration', function(){
-   it('works with not repeated lines', function(){
+describe('Simple configuration', () => {
+   it('works with not repeated lines', () => {
       assert.equal( conf.first('samia'), 'dostika' );
       assert.equal( conf.last('ari'), 'adritida' );
       assert.deepEqual( conf.all('tori'), ['adito madola'] );
    });
-   it('applies a decoder provided by the iconv-lite module', function(){
+   it('applies a decoder provided by the iconv-lite module', () => {
       assert.equal(
          noComments.last('verse'),
          '«Ты, Мадока, не робей!» — вдруг промолвил ей Кюбей.'
       );
    });
-   it('gets one (or more) of repeated lines', function(){
+   it('gets one (or more) of repeated lines', () => {
       assert.equal( conf.first('witch'), 'Charlotte' );
       assert.equal( conf.last('Witch'), 'Kriemhild Gretchen' );
       assert.deepEqual(
          conf.all('witch'), ['Charlotte', 'Oktavia', 'Kriemhild Gretchen']
       );
    });
-   it('makes random selections', function(){
+   it('makes random selections', () => {
       assert.equal( conf.random('samia'), 'dostika' );
       assert.equal( conf.random('tori'), 'adito madola' );
       assert.ok( conf.all('witch').indexOf( conf.random('witch') ) > -1 );
    });
-   it('returns null for missing lines', function(){
+   it('returns null for missing lines', () => {
       assert.equal( conf.first('Mami'), null );
       assert.equal( conf.last(' '), null );
    });
-   it('processes comments', function(){
+   it('processes comments', () => {
       assert.equal( conf.first('#'), 'Sis puella magica!' );
       assert.equal(
          conf.first('//'), 'the previous line contains a whitespace'
       );
    });
-   it('ignores comments (when told to ignore)', function(){
+   it('ignores comments (when told to ignore)', () => {
       assert.equal( noComments.last('#'), null );
       assert.equal( noComments.first('//'), null );
    });
-   it('groups lines based on the prefix', function(){
+   it('groups lines based on the prefix', () => {
       assert.equal( witchConf.group('witch').first('charLotte'), '');
       assert.equal( witchConf.group('WItch').last('OKtaVIA'), '');
       assert.equal( witchConf.group('wiTCH').random('kriemhild'), 'Gretchen');
    });
-   it('ignores lines with defined group prefixes', function(){
+   it('ignores lines with defined group prefixes', () => {
       assert.equal( witchConf.first('witch'), null);
       assert.equal( witchConf.last('WItch'), null);
       assert.equal( witchConf.random('wiTCH'), null);
    });
-   it('lists names of configuration lines', function(){
+   it('lists names of configuration lines', () => {
       assert.deepEqual(
          witchConf.group('witch').names(),
          ['charlotte', 'oktavia', 'kriemhild']
