@@ -2,34 +2,28 @@ var fs = require('fs');
 var extend = require('extend');
 var iconv = require('iconv-lite');
 
-var startsWith = require('underscore.string/startsWith');
 var strLeft = require('underscore.string/strLeft');
 var strRight = require('underscore.string/strRight');
 var ltrim = require('underscore.string/ltrim');
 
-var startWithOneOf = function(inString, inArray){
+var startWithOneOf = (inString, inArray) => {
    if( !Array.isArray(inArray) ) return false;
 
-   var arrlen = inArray.length;
-   for( var i = 0; i < arrlen; i++ ){
-      if( startsWith(inString, inArray[i]) ){
-         return true;
-      }
+   for( var i = 0; i < inArray.length; i++ ){
+      if( inString.startsWith(inArray[i]) ) return true;
    }
    return false;
 };
 
-var beforeSpace = function(inString){
-   if( inString.indexOf(' ') === -1 ){
-      return inString;
-   }
+var beforeSpace = inString => {
+   if(!( inString.includes(' ') )) return inString;
+
    return strLeft(inString, ' ');
 };
 
-var afterSpace = function(inString){
-   if( inString.indexOf(' ') === -1 ){
-      return '';
-   }
+var afterSpace = inString => {
+   if(!( inString.includes(' ') )) return '';
+
    return ltrim( strRight(inString, ' ') );
 };
 
@@ -111,16 +105,12 @@ var simteconf = function(filename, options){
    if( this.options.lowercase ){
       if( this.options.skipNames ){
          this.options.skipNames = this.options.skipNames.map(
-            function(value){
-               return value.toLowerCase();
-            }
+            value => value.toLowerCase()
          );
       }
       if( this.options.prefixGroups ){
          this.options.prefixGroups = this.options.prefixGroups.map(
-            function(value){
-               return value.toLowerCase();
-            }
+            value => value.toLowerCase()
          );
       }
    }
@@ -141,7 +131,7 @@ var simteconf = function(filename, options){
    fileLines = contents.split( this.options.EOL );
    contents = null;
 
-   fileLines.forEach(function(fileLine){
+   fileLines.forEach(fileLine => {
       fileLine = fileLine.trim();
       if( fileLine.length < 1 ) return;
 
